@@ -8,6 +8,22 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyIonicModule } from '@ngx-formly/ionic';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { RoomsAndBathsPipe } from './rooms-and-baths.pipe';
+import { RepeatSectionComponent } from './repeat-section/repeat-section.component';
+
+const config = {
+  apiKey: 'AIzaSyAMgh1xWLi10mYnS_DFyUzYx-0A1b6508Y',
+  authDomain: 'angular-projects-df509.firebaseapp.com',
+  databaseURL: 'https://angular-projects-df509.firebaseio.com',
+  projectId: 'angular-projects-df509',
+  storageBucket: 'angular-projects-df509.appspot.com',
+  messagingSenderId: '464056739723'
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +31,11 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormlyIonicModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule
   ],
   providers: [
     StatusBar,
