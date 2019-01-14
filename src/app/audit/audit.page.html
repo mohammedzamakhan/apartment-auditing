@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Apt # {{model?.number}}</ion-title>
+    <img [src]="base64Image" *ngIf="base64Image" />
+    <ion-icon padding style="float: right" name="camera" (click)="openCamera()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
