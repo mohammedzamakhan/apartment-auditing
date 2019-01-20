@@ -9,6 +9,7 @@ import { AuditPage } from './audit.page';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyIonicModule } from '@ngx-formly/ionic';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ModalPageComponent } from '../modal-page/modal-page.component';
 
 const routes: Routes = [
   {

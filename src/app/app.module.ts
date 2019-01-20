@@ -13,6 +13,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyIonicModule } from '@ngx-formly/ionic';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { ModalPageComponent } from './modal-page/modal-page.component';
 
 const config = {
   apiKey: 'AIzaSyAMgh1xWLi10mYnS_DFyUzYx-0A1b6508Y',
@@ -24,8 +25,8 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ModalPageComponent],
+  entryComponents: [ModalPageComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -35,6 +36,7 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule
   ],
+  exports: [ ModalPageComponent ],
   providers: [
     StatusBar,
     SplashScreen,

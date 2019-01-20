@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { IAppointment } from '../appointment.model';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ModalController } from '@ionic/angular';
+import { ModalPageComponent } from '../modal-page/modal-page.component';
 
 const getRadioField = (id, key: string): FormlyFieldConfig[] => {
   const label = key[0].toUpperCase() + key.slice(1);
@@ -102,14 +104,15 @@ export class AuditPage implements OnInit {
   form = new FormGroup({});
 
   model: any;
-  base64Image: string;
+  base64Images: Array<any> = [];
 
   options: FormlyFormOptions = {};
 
   fields: FormlyFieldConfig[];
   itemRef: AngularFireObject<IAppointment>;
 
-  constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private router: Router, private camera: Camera) {
+  constructor(private db: AngularFireDatabase, private route: ActivatedRoute, private router: Router,
+    private camera: Camera, public modalCtrl: ModalController) {
     const params = this.route.snapshot.params;
     this.itemRef = this.db.object<IAppointment>(`/appointments/${params.key}`);
     this.itemRef.valueChanges().subscribe(appointment => {
@@ -147,17 +150,25 @@ export class AuditPage implements OnInit {
     const options: CameraOptions = {
       quality: 100,
       cameraDirection: this.camera.Direction.BACK,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
     this.camera.getPicture(options).then((imageData) => {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
-     this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    this.base64Images.push(`data:image/jpeg;base64,${imageData}`);
     }, (err) => {
      // Handle error
     });
+  }
+
+  async openModal(pic: string) {
+    const modal = await this.modalCtrl.create({
+      component: ModalPageComponent,
+      componentProps: { value: pic }
+    });
+    return await modal.present();
   }
 
 }
